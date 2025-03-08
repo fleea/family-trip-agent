@@ -7,7 +7,7 @@ from typing import Annotated, Optional
 
 from langchain_core.runnables import RunnableConfig, ensure_config
 
-from profiler.prompts import SYSTEM_PROMPT
+from profiler.utils.prompts import SYSTEM_PROMPT
 
 
 @dataclass(kw_only=True)

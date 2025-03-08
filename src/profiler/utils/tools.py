@@ -6,14 +6,14 @@ These tools are intended as free examples to get started. For production use,
 consider implementing more robust and specialized tools tailored to your needs.
 """
 
-from typing import Any, Callable, List, Optional, cast
+from typing import Any, Optional, cast
 from pydantic import BaseModel, Field
 from langchain_community.tools.tavily_search import TavilySearchResults
 from langchain_core.runnables import RunnableConfig
 from langchain_core.tools import InjectedToolArg
 from typing_extensions import Annotated
 
-from profiler.configuration import Configuration
+from profiler.utils.configuration import Configuration
 from profiler.trip import Trip
 
 

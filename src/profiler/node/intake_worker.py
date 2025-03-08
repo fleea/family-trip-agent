@@ -5,9 +5,9 @@ from langchain_core.messages import AIMessage
 from langchain_core.runnables import RunnableConfig
 from langchain.chat_models import init_chat_model
 
-from profiler.configuration import Configuration
+from profiler.utils.configuration import Configuration
 from profiler.state import InputState, State
-from profiler.tools import SEARCH_TOOL, FORMATTER_TOOL
+from profiler.utils.tools import SEARCH_TOOL, FORMATTER_TOOL
 
 
 async def intake_worker(

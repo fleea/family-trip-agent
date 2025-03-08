@@ -5,11 +5,12 @@ Works with a chat model with tool calling search tool.
 from langgraph.graph import StateGraph
 from langgraph.prebuilt import ToolNode
 
-from profiler.configuration import Configuration
+from profiler.utils.configuration import Configuration
 from profiler.state import InputState, State
-from profiler.tools import SEARCH_TOOL, FORMATTER_TOOL
-from profiler.node import intake_formatter, intake_worker
-from profiler.edge import route_model_output
+from profiler.utils.tools import SEARCH_TOOL, FORMATTER_TOOL
+from profiler.node.formatter import intake_formatter
+from profiler.node.intake_worker import intake_worker
+from profiler.edge.route import route_model_output
 
 builder = StateGraph(State, input=InputState, config_schema=Configuration)
 
@@ -34,7 +35,7 @@ builder.add_edge("intake_formatter", "__end__")
 # Compile the builder into an executable graph
 # You can customize this by adding interrupt points for state updates
 graph = builder.compile(
-    interrupt_before=[],  # Add node names here to update state before they're called
-    interrupt_after=[],  # Add node names here to update state after they're called
+    interrupt_before=[],
+    interrupt_after=[],
 )
-graph.name = "Travel Intake Worker"  # This customizes the name in LangSmith
+graph.name = "Travel Intake Worker"
