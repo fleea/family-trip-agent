@@ -7,16 +7,17 @@ consider implementing more robust and specialized tools tailored to your needs.
 """
 
 from typing import Any, Callable, List, Optional, cast
-
+from pydantic import BaseModel, Field
 from langchain_community.tools.tavily_search import TavilySearchResults
 from langchain_core.runnables import RunnableConfig
 from langchain_core.tools import InjectedToolArg
 from typing_extensions import Annotated
 
-from react_agent.configuration import Configuration
+from profiler.configuration import Configuration
+from profiler.trip import Trip
 
 
-async def search(
+async def Search(
     query: str, *, config: Annotated[RunnableConfig, InjectedToolArg]
 ) -> Optional[list[dict[str, Any]]]:
     """Search for general web results.
@@ -31,4 +32,12 @@ async def search(
     return cast(list[dict[str, Any]], result)
 
 
-TOOLS: List[Callable[..., Any]] = [search]
+
+class TripFormatter(BaseModel):
+    """Always use this tool to structure trip detail sent to user on completion"""
+    trip: Trip = Field(default_factory=Trip, description="Trip intake form detail")
+    complete: bool = False
+
+
+SEARCH_TOOL = Search
+FORMATTER_TOOL = TripFormatter

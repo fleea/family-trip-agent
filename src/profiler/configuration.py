@@ -7,7 +7,7 @@ from typing import Annotated, Optional
 
 from langchain_core.runnables import RunnableConfig, ensure_config
 
-from react_agent import prompts
+from profiler.prompts import SYSTEM_PROMPT
 
 
 @dataclass(kw_only=True)
@@ -15,7 +15,7 @@ class Configuration:
     """The configuration for the agent."""
 
     system_prompt: str = field(
-        default=prompts.SYSTEM_PROMPT,
+        default=SYSTEM_PROMPT,
         metadata={
             "description": "The system prompt to use for the agent's interactions. "
             "This prompt sets the context and behavior for the agent."
@@ -23,17 +23,10 @@ class Configuration:
     )
 
     model: Annotated[str, {"__template_metadata__": {"kind": "llm"}}] = field(
-        default="anthropic/claude-3-5-sonnet-20240620",
+        default="openai:gpt-4o-mini-2024-07-18",
         metadata={
             "description": "The name of the language model to use for the agent's main interactions. "
             "Should be in the form: provider/model-name."
-        },
-    )
-
-    max_search_results: int = field(
-        default=10,
-        metadata={
-            "description": "The maximum number of search results to return for each search query."
         },
     )
 
